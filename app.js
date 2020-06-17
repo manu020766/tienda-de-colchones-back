@@ -1,17 +1,20 @@
 require('dotenv').config()
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 const CargarDatosIniciales = require('./Datos/CargaDatosIniciales')
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRoutes = require('./routes/login')
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const loginRoutes = require('./routes/login')
+const colchonRoutes = require('./routes/colchones')
+const somierRoutes = require('./routes/somieres')
+const destacadoRoutes = require('./routes/destacados')
 
-var app = express();
+const app = express();
 
 mongoose.connect(process.env.ACADEMIA_CONEXION,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -35,6 +38,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/destacados', destacadoRoutes)
+app.use('/somieres', somierRoutes)
+app.use('/colchones', colchonRoutes)
 app.use('/login', loginRoutes)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
