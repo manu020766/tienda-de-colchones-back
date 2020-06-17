@@ -1,3 +1,5 @@
+require('dotenv').config()
+var mongoose = require('mongoose')
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,6 +10,13 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+mongoose.connect(process.env.ACADEMIA_CONEXION,
+  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, function(error) {
+    if (error) console.log('Database no se puede conectar')
+  })
+console.log('Conexion con Base de datos')
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
