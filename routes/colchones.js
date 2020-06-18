@@ -6,7 +6,7 @@ router.get('/', async function(req, res, next) {
 
   let colchones = await Colchon.find({ categoria: 'Colchones' })
  
-  res.status(200).json({ colchones })
+  res.status(200).json( [...colchones] )
 });
 
 router.get('/:id', async function(req, res, next) {

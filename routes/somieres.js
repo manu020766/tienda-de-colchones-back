@@ -6,7 +6,7 @@ router.get('/', async function(req, res, next) {
 
   let somieres = await Somier.find({ categoria: 'Somieres' })
  
-  res.status(200).json({ somieres })
+  res.status(200).json( [...somieres])
 });
 
 router.get('/:id', async function(req, res, next) {
