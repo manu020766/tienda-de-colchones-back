@@ -15,4 +15,10 @@ router.get('/:id', async function(req, res, next) {
   res.status(200).json(somier[0])
 });
 
+router.delete('/:id', async function(req, res, next) {
+  let somier =  await Somier.findOneAndDelete({ _id: req.params.id })
+ 
+  res.status(200).json({ message: "somier borrado"})
+});
+
 module.exports = router

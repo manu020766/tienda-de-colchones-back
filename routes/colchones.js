@@ -15,4 +15,10 @@ router.get('/:id', async function(req, res, next) {
   res.status(200).json(colchon[0])
 });
 
+router.delete('/:id', async function(req, res, next) {
+  let colchon =  await Colchon.findOneAndDelete({ _id: req.params.id })
+ 
+  res.status(200).json({ message: "colchón borrado"})
+});
+
 module.exports = router
