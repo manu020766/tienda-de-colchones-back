@@ -1,6 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 const CargarDatosIniciales = require('./Datos/CargaDatosIniciales')
+const cors = require('cors')
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -32,6 +33,7 @@ connection.once("open", function() {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
