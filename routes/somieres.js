@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
   let somier =  await Somier.find({ categoria: 'Somieres', _id: req.params.id })
  
-  res.status(200).json({ somier })
+  res.status(200).json(somier[0])
 });
 
 module.exports = router

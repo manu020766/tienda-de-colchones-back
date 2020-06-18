@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
   let colchon =  await Colchon.find({ categoria: 'Colchones', _id: req.params.id })
  
-  res.status(200).json({ colchon })
+  res.status(200).json(colchon[0])
 });
 
 module.exports = router

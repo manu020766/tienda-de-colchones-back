@@ -42,7 +42,7 @@ const productos = [
     {
         titulo: 'Colchón Memory Black',
         descripcion: 'Viscoelástico con partículas de gel integradas',
-        imagen: 'colchon-memory-black.jpg',
+        imagen: 'colchon-magicbed-90.jpg',
         precio: 1700,
         categoria: 'Colchones',
         destacado: true
