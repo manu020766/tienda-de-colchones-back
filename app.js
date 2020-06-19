@@ -14,6 +14,7 @@ const loginRoutes = require('./routes/login')
 const colchonRoutes = require('./routes/colchones')
 const somierRoutes = require('./routes/somieres')
 const destacadoRoutes = require('./routes/destacados')
+const productoRoutes = require('./routes/productos')
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/productos', productoRoutes)
 app.use('/destacados', destacadoRoutes)
 app.use('/somieres', somierRoutes)
 app.use('/colchones', colchonRoutes)
