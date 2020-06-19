@@ -14,8 +14,14 @@ router.post('', async (req, res) => {
         // res.status(200).json({ passwordDB: usuarioDB.password, password })
 
         if (usuarioDB.password === password) {
-            usuarioDB.password = ''
-            res.status(200).json({ usuarioDB })
+            let usuario = {
+                id: usuarioDB._id,
+                nombre: usuarioDB.nombre,
+                email: usuarioDB.email,
+                rol: usuarioDB.rol
+            }
+
+            res.status(200).json({ ...usuario })
         } else {
             res.status(200).json({ ok: false })
         }
