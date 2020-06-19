@@ -21,13 +21,13 @@ router.post('', async (req, res) => {
                 rol: usuarioDB.rol
             }
 
-            res.status(200).json({ ...usuario })
+            res.status(200).json({ ok: true, mensaje: 'Credenciales correctas', usuario })
         } else {
-            res.status(200).json({ ok: false })
+            res.status(200).json({ ok: false, mensaje: 'Credenciales incorrectas' })
         }
 
     } catch (error) {
-        res.status(404).json({ok: false, mensaje: 'Credenciales incorrectas', errors: error})
+        res.status(404).json({ ok: false, mensaje: 'Credenciales incorrectas'})
     }    
 })
 
