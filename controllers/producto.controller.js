@@ -54,6 +54,8 @@ async function getProductosByCategoria(req, res) {
     let { categoria } = req.params
     let { destacado } = req.query
 
+    categoria = categoria.charAt(0).toUpperCase() + categoria.slice(1)
+
     if (!categorias.includes(categoria)) {
         res.status(400).json([])
     }
@@ -71,10 +73,6 @@ async function getProductosByCategoria(req, res) {
 
 async function delProductoById(req, res) {
     let { id } = req.params
-
-    console.log(req)
-
-    restart.json(req)
 
     let producto =  await Producto.findOneAndDelete({ _id: id })
  
