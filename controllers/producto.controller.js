@@ -26,7 +26,57 @@ async function createProducto(req, res) {
     })
 }
 
+async function getProductos(req, res) {
+    let { destacado } = req.query
+    console.log(destacado)
+
+    let productos
+    
+    if (destacado) {
+        productos = await Producto.find({ destacado: destacado })
+    } else {
+        productos = await Producto.find()
+    }
+   
+    res.status(200).json( [...productos] )
+}
+
+async function getProductoById(req, res) {
+    let { categoria, id } = req.params
+
+    let producto =  await Producto.find({ categoria: categoria, _id: id })
+ 
+    res.status(200).json(producto[0])
+}
+
+async function getProductosByCategoria(req, res) {
+    let { categoria } = req.params
+    let { destacado } = req.query
+
+    let productos
+    
+    if (destacado) {
+        productos = await Producto.find({ categoria: categoria, destacado: destacado })
+    } else {
+        productos = await Producto.find({ categoria: categoria })
+    }
+   
+    res.status(200).json( [...productos] )
+}
+
+async function delProductoById(req, res) {
+    let { id } = req.params
+
+    let producto =  await Producto.findOneAndDelete({ _id: id })
+ 
+    res.status(200).json({ message: "producto borrado"})
+}
+
 module.exports = {
-    createProducto
+    createProducto,
+    getProductos,
+    getProductoById,
+    getProductosByCategoria,
+    delProductoById
 }
 
