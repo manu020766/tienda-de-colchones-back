@@ -10,7 +10,7 @@ router.route('/')
 router.route('/:categoria')
     .get(getProductosByCategoria)
 
-router.route('/:categoria/:id')
+router.route('/id/:id')
     .get(getProductoById)
 
 router.route('/:id')

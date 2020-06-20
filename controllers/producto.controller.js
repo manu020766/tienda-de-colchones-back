@@ -1,4 +1,5 @@
 const Producto = require('../Models/productos')
+const categorias = require('../Datos/dbCategorias')
 // import fse from 'fs-extra' 
 // import path from 'path'
 
@@ -42,9 +43,9 @@ async function getProductos(req, res) {
 }
 
 async function getProductoById(req, res) {
-    let { categoria, id } = req.params
+    let { id } = req.params
 
-    let producto =  await Producto.find({ categoria: categoria, _id: id })
+    let producto =  await Producto.find({ _id: id })
  
     res.status(200).json(producto[0])
 }
@@ -52,6 +53,10 @@ async function getProductoById(req, res) {
 async function getProductosByCategoria(req, res) {
     let { categoria } = req.params
     let { destacado } = req.query
+
+    if (!categorias.includes(categoria)) {
+        res.status(400).json({ message: "Categoria No existe"})
+    }
 
     let productos
     
@@ -67,6 +72,10 @@ async function getProductosByCategoria(req, res) {
 async function delProductoById(req, res) {
     let { id } = req.params
 
+    console.log(req)
+
+    restart.json(req)
+
     let producto =  await Producto.findOneAndDelete({ _id: id })
  
     res.status(200).json({ message: "producto borrado"})
@@ -75,8 +84,8 @@ async function delProductoById(req, res) {
 module.exports = {
     createProducto,
     getProductos,
-    getProductoById,
     getProductosByCategoria,
+    getProductoById,
     delProductoById
 }
 
