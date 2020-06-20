@@ -55,7 +55,7 @@ async function getProductosByCategoria(req, res) {
     let { destacado } = req.query
 
     if (!categorias.includes(categoria)) {
-        res.status(400).json({ message: "Categoria No existe"})
+        res.status(400).json([])
     }
 
     let productos
