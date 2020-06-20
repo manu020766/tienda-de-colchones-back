@@ -11,9 +11,6 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const loginRoutes = require('./routes/login')
-const colchonRoutes = require('./routes/colchones')
-const somierRoutes = require('./routes/somieres')
-const destacadoRoutes = require('./routes/destacados')
 const productoRoutes = require('./routes/productos')
 
 const app = express();
@@ -42,9 +39,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/productos', productoRoutes)
-app.use('/destacados', destacadoRoutes)
-app.use('/somieres', somierRoutes)
-app.use('/colchones', colchonRoutes)
 app.use('/login', loginRoutes)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
