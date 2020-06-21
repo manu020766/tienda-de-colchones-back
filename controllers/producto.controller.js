@@ -1,13 +1,11 @@
 const Producto = require('../Models/productos')
 const categorias = require('../Datos/dbCategorias')
-// import fse from 'fs-extra' 
-// import path from 'path'
+const path = require('path')
+const fse = require('fs-extra')
 
 async function createProducto(req, res) {
     const { titulo, descripcion, precio, categoria, destacado } = req.body
     let imagen = req.file?.path
-
-    console.log(imagen)
 
     const newProducto = {
         titulo,
@@ -40,6 +38,44 @@ async function getProductos(req, res) {
     }
    
     res.status(200).json( [...productos] )
+}
+
+
+async function updateProducto(req, res) {
+    const { id } = req.params;
+    const { titulo, descripcion, precio, categoria, destacado } = req.body
+    let imagen = req.file?.path
+
+    let newImagen = imagen.split('\\')[2]
+    let pathImagen = imagen.replace(newImagen, '')
+
+    const updateProducto = {
+        titulo,
+        descripcion,
+        precio,
+        categoria,
+        destacado,
+        imagen: newImagen
+    }
+
+    let oldProducto = await Producto.findById(id)
+
+    if (newImagen !== oldProducto.imagen) {
+        let borrarImagen = imagen.replace(newImagen, oldProducto.imagen)
+
+        await fse.unlink(path.resolve(borrarImagen))
+    }
+
+    try {
+        await Producto.findByIdAndUpdate(req.params.id, updateProducto)
+        return res.json({
+            message: 'Successfully updated',
+            producto: updateProducto
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
 async function getProductoById(req, res) {
@@ -84,6 +120,7 @@ module.exports = {
     getProductos,
     getProductosByCategoria,
     getProductoById,
-    delProductoById
+    delProductoById,
+    updateProducto
 }
 

@@ -1,6 +1,11 @@
 const { Router } = require('express')
 const router = Router()
-const { createProducto, getProductosByCategoria, getProductoById, delProductoById, getProductos } = require('../controllers/producto.controller')
+const { createProducto,
+        getProductosByCategoria,
+        getProductoById,
+        delProductoById,
+        updateProducto,
+        getProductos } = require('../controllers/producto.controller')
 const multer = require('../libs/multer')
 
 router.route('/')
@@ -15,5 +20,6 @@ router.route('/id/:id')
 
 router.route('/:id')
     .delete(delProductoById)
+    .put(multer.single('imagen'), updateProducto)
         
 module.exports = router
