@@ -110,6 +110,9 @@ async function getProductosByCategoria(req, res) {
 async function delProductoById(req, res) {
     let { id } = req.params
 
+    let oldProducto = await Producto.findById(id)
+    await fse.unlink(path.resolve(`public\\Upload\\${oldProducto.imagen}`))
+
     let producto =  await Producto.findOneAndDelete({ _id: id })
  
     res.status(200).json({ message: "producto borrado"})
