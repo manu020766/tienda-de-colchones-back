@@ -1,3 +1,4 @@
+const bcryptjs = require('bcryptjs')
 const { Router } = require('express')
 const router = Router()
 var Usuario = require('../Models/usuarios')
@@ -11,9 +12,7 @@ router.post('', async (req, res) => {
     try {
         const usuarioDB = await Usuario.findOne({ email: email })
 
-        // res.status(200).json({ passwordDB: usuarioDB.password, password })
-
-        if (usuarioDB.password === password) {
+        if (await bcryptjs.compare(password, usuarioDB.password)) {
             let usuario = {
                 id: usuarioDB._id,
                 nombre: usuarioDB.nombre,
