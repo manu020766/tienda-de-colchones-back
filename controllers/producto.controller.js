@@ -46,34 +46,39 @@ async function updateProducto(req, res) {
     const { titulo, descripcion, precio, categoria, destacado } = req.body
     let imagen = req.file?.path
 
-    let newImagen = imagen.split('\\')[2]
-    let pathImagen = imagen.replace(newImagen, '')
+    // res.json(imagen === undefined)
 
-    const updateProducto = {
-        titulo,
-        descripcion,
-        precio,
-        categoria,
-        destacado,
-        imagen: newImagen
-    }
+    let newImagen
+    if(imagen) newImagen = imagen.split('\\')[2]
+    // let pathImagen = imagen.replace(newImagen, '')
 
     let oldProducto = await Producto.findById(id)
 
-    if (newImagen !== oldProducto.imagen) {
-        let borrarImagen = imagen.replace(newImagen, oldProducto.imagen)
+    const updateProducto = {
+        titulo: titulo || oldProducto.titulo,
+        descripcion: descripcion || oldProducto.descripcion,
+        precio: precio || oldProducto.precio,
+        categoria: categoria || oldProducto.categoria,
+        destacado: destacado || oldProducto.destacado,
+        imagen: newImagen || oldProducto.imagen
+    }
 
-        await fse.unlink(path.resolve(borrarImagen))
+    if (imagen) {
+        if (newImagen !== oldProducto.imagen) {
+            let borrarImagen = imagen.replace(newImagen, oldProducto.imagen)
+
+            await fse.unlink(path.resolve(borrarImagen))
+        }
     }
 
     try {
         await Producto.findByIdAndUpdate(req.params.id, updateProducto)
-        return res.json({
-            message: 'Successfully updated',
+        return res.status(200).json({
+            ok: true,
             producto: updateProducto
         })
     } catch (error) {
-        console.log(error)
+        res.status(400).json({ok: false})
     }
 
 }
