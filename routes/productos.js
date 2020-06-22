@@ -7,19 +7,20 @@ const { createProducto,
         updateProducto,
         getProductos } = require('../controllers/producto.controller')
 const multer = require('../libs/multer')
+const { verifycaToken } = require('../middleware/auth')
 
 router.route('/')
-    .post(multer.single('imagen'), createProducto)
-    .get(getProductos)
+    .post(verifycaToken, multer.single('imagen'), createProducto)
+    .get(verifycaToken, getProductos)
 
 router.route('/:categoria')
-    .get(getProductosByCategoria)
+    .get(verifycaToken, getProductosByCategoria)
 
 router.route('/id/:id')
-    .get(getProductoById)
+    .get(verifycaToken, getProductoById)
 
 router.route('/:id')
-    .delete(delProductoById)
-    .put(multer.single('imagen'), updateProducto)
+    .delete(verifycaToken, delProductoById)
+    .put(verifycaToken, multer.single('imagen'), updateProducto)
         
 module.exports = router

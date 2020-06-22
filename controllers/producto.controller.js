@@ -17,12 +17,19 @@ async function createProducto(req, res) {
     }
 
     const producto = new Producto(newProducto)
-    await producto.save()
 
-    return res.json({
-        message: 'Producto creado',
-        producto
-    })
+    try {
+        await producto.save()
+
+        return res.json({
+            ok: true,
+            message: 'Producto creado',
+            producto
+        })
+    } catch (error) {
+        return res.json({ ok: false, mensaje: "No se ha podido crear el producto"})
+    }
+
 }
 
 async function getProductos(req, res) {

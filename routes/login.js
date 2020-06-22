@@ -1,14 +1,15 @@
 const bcryptjs = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const { Router } = require('express')
 const router = Router()
-var Usuario = require('../Models/usuarios')
+const Usuario = require('../Models/usuarios')
 
 //===================================================
 // Login: envia email y password y obtiene un token
 //===================================================
 router.post('', async (req, res) => {
     const { email, password } = req.body
- 
+
     try {
         const usuarioDB = await Usuario.findOne({ email: email })
 
@@ -20,7 +21,9 @@ router.post('', async (req, res) => {
                 rol: usuarioDB.rol
             }
 
-            res.status(200).json({ ok: true, mensaje: 'Credenciales correctas', usuario })
+            const token = jwt.sign({ usuario }, process.env.SECRET, { expiresIn: 14400 })
+
+            res.status(200).json({ ok: true, mensaje: 'Credenciales correctas', usuario, token})
         } else {
             res.status(200).json({ ok: false, mensaje: 'Credenciales incorrectas' })
         }
