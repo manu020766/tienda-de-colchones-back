@@ -42,7 +42,7 @@ const productos = [
     {
         titulo: 'Colchón Memory Black',
         descripcion: 'Viscoelástico con partículas de gel integradas',
-        imagen: 'colchon-magicbed-90.jpg',
+        imagen: 'colchon-memory-black.jpg',
         precio: 1700,
         categoria: 'Colchones',
         destacado: true
@@ -130,7 +130,7 @@ const productos = [
     {
         titulo: 'Somier SG20 de Pikolin',
         descripcion: 'Perfecta sustentación del colchón',
-        imagen: 'somier-sg20-pikolin.jpg',
+        imagen: 'somier-sg20pikolin.jpg',
         precio: 400,
         categoria: 'Somieres',
         destacado: false
@@ -177,7 +177,7 @@ const productos = [
     },
     {
         titulo: 'Cama nido Twin de HOME',
-        descripcion: 'Láminas dobles XL en zona lumbar',
+        descripcion: 'Láminas dobles XL en zona lumbar',    
         imagen: 'cama-nido-twin-home.jpg',
         precio: 600,
         categoria: 'Somieres',
@@ -186,7 +186,7 @@ const productos = [
     {
         titulo: 'Cama nido canguro KT47',
         descripcion: 'Apto para todo tipo de colchones',
-        imagen: 'cama-nido-canguro-kt47.jpg',
+        imagen: 'cama-nido-canguro.jpg',
         precio: 780,
         categoria: 'Somieres',
         destacado: false
