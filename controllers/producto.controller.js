@@ -34,7 +34,6 @@ async function createProducto(req, res) {
 
 async function getProductos(req, res) {
     let { destacado } = req.query
-    console.log(destacado)
 
     let productos
     
